@@ -1,6 +1,7 @@
 package com.lxhdj.util;
 
 import com.lxhdj.bean.ConstantPool;
+import com.lxhdj.common.Constants;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,21 +36,21 @@ public class ClassUtil {
     }
 
     public static float readFloat(InputStream in) throws IOException {
-        byte[] arr = new byte[4];
+        byte[] arr = new byte[Constants.FOUR];
         in.read(arr);
         float rf = CommonUtil.byteArrayToFloat(arr);
         return rf;
     }
 
     public static long readLong(InputStream in) throws IOException {
-        byte[] arr = new byte[8];
+        byte[] arr = new byte[Constants.EIGHT];
         in.read(arr);
         long rl = CommonUtil.byteArrayToLong(arr);
         return rl;
     }
 
     public static double readDouble(InputStream in) throws IOException {
-        byte[] arr = new byte[8];
+        byte[] arr = new byte[Constants.EIGHT];
         in.read(arr);
         double rd = CommonUtil.byteArrayToDouble(arr);
         return rd;

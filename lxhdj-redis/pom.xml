@@ -11,9 +11,7 @@
     <artifactId>lxhdj-redis</artifactId>
     <name>lxhdj-redis</name>
 
-    <dependencies>
-    </dependencies>
-
     <build>
+        <finalName>lxhdj-redis</finalName>
     </build>
 </project>

@@ -1,4 +1,4 @@
-package com.lxhdj.rocketMQ.RocketMQ;
+package com.lxhdj.rocket;
 
 import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;

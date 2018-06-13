@@ -1,4 +1,4 @@
-package com.lxhdj.rocketMQ.RocketMQ;
+package com.lxhdj.rocket;
 
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
@@ -15,11 +15,11 @@ public class RocketMQProducer {
 
     private DefaultMQProducer sender;
 
-    protected String nameServer;
+    private String nameServer;
 
-    protected String groupName;
+    private String groupName;
 
-    protected String topics;
+    private String topics;
 
     public void init() {
         sender = new DefaultMQProducer(groupName);

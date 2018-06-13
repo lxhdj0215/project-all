@@ -1,4 +1,4 @@
-package com.lxhdj.rocketMQ.RocketMQ;
+package com.lxhdj.rocket;
 
 /**
  * Created by wangguijun1 on 2018/6/7.

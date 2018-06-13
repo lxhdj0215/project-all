@@ -1,4 +1,4 @@
-package com.lxhdj.rocketMQ.RocketMQ;
+package com.lxhdj.rocket;
 
 import com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
 import com.alibaba.rocketmq.client.consumer.listener.MessageListener;
@@ -17,11 +17,11 @@ public class RocketMQConsumer {
 
     private MessageListener listener;
 
-    protected String nameServer;
+    private String nameServer;
 
-    protected String groupName;
+    private String groupName;
 
-    protected String topics;
+    private String topics;
 
     public RocketMQConsumer(MessageListener listener, String nameServer, String groupName, String topics) {
         this.listener = listener;
@@ -47,7 +47,8 @@ public class RocketMQConsumer {
         } catch (MQClientException e) {
             e.printStackTrace();
         }
-        System.out.println("RocketMQConsumer Started! group=" + consumer.getConsumerGroup() + " instance=" + consumer.getInstanceName()
+        System.out.println("RocketMQConsumer Started! group=" + consumer.getConsumerGroup() +
+                " instance=" + consumer.getInstanceName()
         );
     }
 

@@ -44,12 +44,6 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>ch.qos.logback</groupId>-->
-        <!--<artifactId>logback-classic</artifactId>-->
-        <!--<version>${logback.version}</version>-->
-        <!--<scope>test</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
@@ -111,6 +105,30 @@
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.1.0</version>
+            </plugin>
+            <!-- 代码格式检查插件 -->
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <configLocation>code-style.xml</configLocation>
+                </configuration>
+                <!-- package时自动执行，失败将阻塞build过程 -->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <archiveClasses>true</archiveClasses>
+                </configuration>
             </plugin>
         </plugins>
     </build>

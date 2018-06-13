@@ -90,33 +90,5 @@
 
     <build>
         <finalName>lxhdj-web</finalName>
-        <plugins>
-            <!-- 代码格式检查插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <configLocation>code-style.xml</configLocation>
-                </configuration>
-                <!-- package时自动执行，失败将阻塞build过程 -->
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.1</version>
-                <configuration>
-                    <archiveClasses>true</archiveClasses>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>
