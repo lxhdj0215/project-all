@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- dataSource属性指定要用到的连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- configLocation属性指定mybatis的核心配置文件 -->
+        <property name="configLocation" value="classpath:spring/spring-config-mybatis.xml"/>
+        <!-- 扫描entity包,使用别名,多个用;隔开 -->
+        <property name="typeAliasesPackage" value="com.lxhdj.mybatis.model"/>
+        <!-- 所有配置的mapper文件 -->
+        <property name="mapperLocations" value="classpath:com/lxhdj/mybatis/model/mapper/User.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.lxhdj.mybatis.inter"/>
+    </bean>
+</beans>

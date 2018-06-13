@@ -8,10 +8,18 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>lxhdj-classparser</artifactId>
-    <name>lxhdj-classparser</name>
+    <artifactId>lxhdj-mq</artifactId>
+    <name>lxhdj-mq</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>${rocketmq.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
-        <finalName>lxhdj-classparser</finalName>
+        <finalName>lxhdj-mq</finalName>
     </build>
 </project>

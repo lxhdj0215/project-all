@@ -12,8 +12,6 @@
     <artifactId>lxhdj-algorithm</artifactId>
     <name>lxhdj-algorithm</name>
 
-    <dependencies></dependencies>
-
     <build>
         <finalName>lxhdj-algorithm</finalName>
     </build>
