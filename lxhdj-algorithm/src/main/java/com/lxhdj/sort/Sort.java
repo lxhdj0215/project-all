@@ -2,7 +2,7 @@ package com.lxhdj.sort;
 
 public class Sort {
 
-    public static void bubbleSort(int[] arr) {
+    public static int[] bubbleSort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
@@ -12,9 +12,10 @@ public class Sort {
                 }
             }
         }
+        return arr;
     }
 
-    public static void selectionSort(int[] arr) {
+    public static int[] selectionSort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             int min = i;
             for (int j = i + 1; j < arr.length; j++) {
@@ -28,11 +29,11 @@ public class Sort {
                 }
             }
         }
+        return arr;
     }
 
-    public static void insertSort(int[] arr) {
+    public static int[] insertSort(int[] arr) {
         int key;
-
         for (int i = 1; i < arr.length; i++) {
             key = arr[i];
             int j = i;
@@ -42,6 +43,7 @@ public class Sort {
             }
             arr[j] = key;
         }
+        return arr;
     }
 
 }
