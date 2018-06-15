@@ -1,11 +1,14 @@
 package com.lxhdj.rocket;
 
+import org.junit.Test;
+
 /**
  * Created by wangguijun1 on 2018/6/7.
  */
 public class RocketMQConsumerTest {
 
-    public static void main(String[] args) {
+    @Test
+    public void consumerTest() {
         String mqNameServer = "192.168.99.100:9876";
         String mqTopics = "MQ-MSG-TOPICS-TEST";
 
@@ -21,6 +24,5 @@ public class RocketMQConsumerTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }

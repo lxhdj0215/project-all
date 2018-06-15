@@ -1,12 +1,14 @@
 package com.lxhdj.sina;
 
+import com.alibaba.fastjson.JSONObject;
+import com.lxhdj.util.HttpClientUtil;
+import com.lxhdj.util.RsaUtil;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -27,18 +29,18 @@ public class SinaLogin {
             System.out.println("登录初始化失败！");
             return null;
         }
-        boolean bol = encodePassword(jsonObject);
-        if (!bol) {
+        jsonObject = encodePassword(jsonObject);
+        if (jsonObject == null) {
             System.out.println("密码加密失败！");
             return null;
         }
-        bol = login(jsonObject);
-        if (!bol) {
+        jsonObject = login(jsonObject);
+        if (jsonObject == null) {
             System.out.println("登录失败！");
             return null;
         }
-        bol = passwort(jsonObject);
-        if (!bol) {
+        jsonObject = passwort(jsonObject);
+        if (jsonObject == null) {
             System.out.println("登录失败！");
             return null;
         }
@@ -46,18 +48,25 @@ public class SinaLogin {
         return httpClient;
     }
 
-    public boolean passwort(JSONObject jsonObject) {
+    public JSONObject passwort(JSONObject jsonObject) {
         String location = jsonObject.getString("location");
         try {
-            @SuppressWarnings("unused")
-            String result = SinaHttpUtil.getRequest(httpClient, location);
-            return true;
+            String html = HttpClientUtil.getRequest(httpClient, location);
+            Pattern pattern = Pattern.compile("feedBackUrlCallBack\\((.+?)\\);");
+            Matcher matcher = pattern.matcher(html);
+            if (matcher.find()) {
+                String resultStr = matcher.group(1);
+                JSONObject resultJSONObject = JSONObject.parseObject(resultStr);
+                boolean result = (boolean) resultJSONObject.get("result");
+                jsonObject.put("result", result);
+                return jsonObject;
+            }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -66,24 +75,24 @@ public class SinaLogin {
      * @param jsonObject
      * @return
      */
-    public boolean login(JSONObject jsonObject) {
+    public JSONObject login(JSONObject jsonObject) {
         String url = "http://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.18)";
         List<NameValuePair> parameters = getLoginParameters(jsonObject);
         try {
-            String content = SinaHttpUtil.postRequest(httpClient, url, parameters, null);
+            String content = HttpClientUtil.postRequest(httpClient, url, parameters, null);
             Pattern pattern = Pattern.compile("location\\.replace\\('(.+?)'\\);");
             Matcher matcher = pattern.matcher(content);
             if (matcher.find()) {
                 String location = matcher.group(1);
                 jsonObject.put("location", location);
-                return true;
+                return jsonObject;
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -99,7 +108,8 @@ public class SinaLogin {
         parms.add(new BasicNameValuePair("from", ""));
         parms.add(new BasicNameValuePair("savestate", "7"));
         parms.add(new BasicNameValuePair("useticket", "1"));
-        parms.add(new BasicNameValuePair("pagerefer", "http://login.sina.com.cn/sso/logout.php?entry=miniblog&r=http%3A%2F%2Fweibo.com%2Flogout.php%3Fbackurl%3D%2F"));
+        parms.add(new BasicNameValuePair("pagerefer", "http://login.sina.com.cn/sso/logout.php?" +
+                "entry=miniblog&r=http%3A%2F%2Fweibo.com%2Flogout.php%3Fbackurl%3D%2F"));
         parms.add(new BasicNameValuePair("vsnf", "1"));
         parms.add(new BasicNameValuePair("su", jsonObject.getString("su")));
         parms.add(new BasicNameValuePair("service", "miniblog"));
@@ -110,7 +120,8 @@ public class SinaLogin {
         parms.add(new BasicNameValuePair("sp", jsonObject.getString("sp")));
         parms.add(new BasicNameValuePair("encoding", "UTF-8"));
         parms.add(new BasicNameValuePair("prelt", "182"));
-        parms.add(new BasicNameValuePair("url", "http://weibo.com/ajaxlogin.php?framelogin=1&callback=parent.sinaSSOController.feedBackUrlCallBack"));
+        parms.add(new BasicNameValuePair("url", "http://weibo.com/ajaxlogin.php?" +
+                "framelogin=1&callback=parent.sinaSSOController.feedBackUrlCallBack"));
         parms.add(new BasicNameValuePair("returntype", "META"));
         return parms;
     }
@@ -120,21 +131,19 @@ public class SinaLogin {
      *
      * @param jsonObject
      */
-    public boolean encodePassword(JSONObject jsonObject) {
+    public JSONObject encodePassword(JSONObject jsonObject) {
         String servertime = jsonObject.getString("servertime");
         String nonce = jsonObject.getString("nonce");
         String pubkey = jsonObject.getString("pubkey");
         String pwdString = servertime + "\t" + nonce + "\n" + password;
-        // System.out.println(pubkey);
-        // System.out.println(pwdString);
         try {
-            String sp = SinaRsa.encryptByPublicKey(pubkey, "10001", pwdString);
+            String sp = RsaUtil.encryptByPublicKey(pubkey, "10001", pwdString);
             jsonObject.put("sp", sp);
-            return true;
+            return jsonObject;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -143,13 +152,12 @@ public class SinaLogin {
     public JSONObject preLogin() {
         JSONObject jsonObject = null;
         try {
-//			String su = base64Encoder.encode(URLEncoder.encode(userName, "utf-8").getBytes());
             String su = Base64.encodeBase64String(URLEncoder.encode(userName, "utf-8").getBytes());
-            String url = "http://login.sina.com.cn/sso/prelogin.php?entry=weibo&rsakt=mod&checkpin=1&client=ssologin.js(v1.4.5)&_=" + System.currentTimeMillis();
+            String url = "http://login.sina.com.cn/sso/prelogin.php?" +
+                    "entry=weibo&rsakt=mod&checkpin=1&client=ssologin.js(v1.4.5)&_=" + System.currentTimeMillis();
             url += "&su=" + su;
-            String content = SinaHttpUtil.getRequest(httpClient, url);
-//			jsonObject = JSONObject.fromObject(content);
-            jsonObject = (JSONObject) JSONObject.stringToValue(content);
+            String content = HttpClientUtil.getRequest(httpClient, url);
+            jsonObject = JSONObject.parseObject(content);
             jsonObject.put("su", su);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

@@ -1,25 +1,14 @@
 package com.lxhdj.util;
 
-import java.io.*;
+import com.lxhdj.constant.Constants;
 
 public class CommonUtil {
 
-    public static void copy(InputStream input, OutputStream output) throws IOException {
-        byte[] buf = new byte[4096];
-        int bytesRead = 0;
-        while ((bytesRead = input.read(buf)) != -1) {
-            output.write(buf, 0, bytesRead);
-        }
-    }
-
-    public static byte[] readFileToByteArray(File file) throws IOException {
-        InputStream input = new FileInputStream(file);
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+    public static void sleep(long millis) {
         try {
-            copy(input, output);
-            return output.toByteArray();
-        } finally {
-            input.close();
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -30,12 +19,12 @@ public class CommonUtil {
      * @return
      */
     public static byte[] intToByteArray(int i) {
-        byte[] result = new byte[4];
+        byte[] result = new byte[Constants.CONSTANT_4];
         // 由高位到低位
-        result[0] = (byte) ((i >> 24) & 0xFF);
-        result[1] = (byte) ((i >> 16) & 0xFF);
-        result[2] = (byte) ((i >> 8) & 0xFF);
-        result[3] = (byte) (i & 0xFF);
+        result[0] = (byte) ((i >> Constants.CONSTANT_24) & Constants.CONSTANT_FF);
+        result[1] = (byte) ((i >> Constants.CONSTANT_16) & Constants.CONSTANT_FF);
+        result[2] = (byte) ((i >> Constants.CONSTANT_8) & Constants.CONSTANT_FF);
+        result[Constants.CONSTANT_3] = (byte) (i & Constants.CONSTANT_FF);
         return result;
     }
 
@@ -49,8 +38,9 @@ public class CommonUtil {
         short value = 0;
         // 由高位到低位
         for (int i = 0; i < 2; i++) {
-            int shift = (2 - 1 - i) * 8;
-            value += (bytes[i] & 0x00FF) << shift;// 往高位游
+            int shift = (2 - 1 - i) * Constants.CONSTANT_8;
+            // 往高位游
+            value += (bytes[i] & Constants.CONSTANT_00FF) << shift;
         }
         return value;
     }
@@ -66,8 +56,9 @@ public class CommonUtil {
         int len = bytes.length;
         // 由高位到低位
         for (int i = 0; i < len; i++) {
-            int shift = (len - 1 - i) * 8;
-            value += (bytes[i] & 0x000000FF) << shift;// 往高位游
+            int shift = (len - 1 - i) * Constants.CONSTANT_8;
+            // 往高位游
+            value += (bytes[i] & Constants.CONSTANT_0000FF) << shift;
         }
         return value;
     }
