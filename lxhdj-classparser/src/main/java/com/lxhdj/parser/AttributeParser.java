@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lxhdj.bean.ConstantPool;
-import com.lxhdj.common.Constants;
+import com.lxhdj.constant.Constants;
 import com.lxhdj.util.ClassUtil;
 
 public class AttributeParser {
@@ -15,7 +15,7 @@ public class AttributeParser {
         System.out.print("\tattribute_name_index：" + attributeNameIndex);
         List<String> name = ClassUtil.getValue(map, attributeNameIndex);
         System.out.println("：" + name);
-        int attributeLength = ClassUtil.readInteger(in, Constants.FOUR);
+        int attributeLength = ClassUtil.readInteger(in, Constants.CONSTANT_4);
         System.out.println("\tattribute_length：" + attributeLength);
         if ("Code".equals(name.get(0))) {
             readCode(in, map);
@@ -68,7 +68,7 @@ public class AttributeParser {
         System.out.println("\tmax_stack：" + maxStack);
         int maxLocals = ClassUtil.readInteger(in, 2);
         System.out.println("\tmax_locals：" + maxLocals);
-        int codeLength = ClassUtil.readInteger(in, Constants.FOUR);
+        int codeLength = ClassUtil.readInteger(in, Constants.CONSTANT_4);
         System.out.println("\tcode_length：" + codeLength);
         for (int i = 0; i < codeLength; i++) {
             int code = ClassUtil.readInteger(in, 1);

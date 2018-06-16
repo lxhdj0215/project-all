@@ -13,53 +13,115 @@ public class CommonUtil {
     }
 
     /**
-     * int到byte[]
+     * Big-Endian
      *
      * @param i
      * @return
      */
     public static byte[] intToByteArray(int i) {
-        byte[] result = new byte[Constants.CONSTANT_4];
-        // 由高位到低位
-        result[0] = (byte) ((i >> Constants.CONSTANT_24) & Constants.CONSTANT_FF);
-        result[1] = (byte) ((i >> Constants.CONSTANT_16) & Constants.CONSTANT_FF);
-        result[2] = (byte) ((i >> Constants.CONSTANT_8) & Constants.CONSTANT_FF);
-        result[Constants.CONSTANT_3] = (byte) (i & Constants.CONSTANT_FF);
-        return result;
+        int len = Constants.CONSTANT_4;
+        byte[] array = new byte[len];
+        for (int j = 0; j < len; j++) {
+            array[len - i - 1] = (byte) ((i >> i * Constants.CONSTANT_8) & Constants.CONSTANT_FF);
+        }
+        return array;
     }
 
     /**
-     * byte[]转short
+     * Big-Endian
      *
-     * @param bytes
+     * @param d
      * @return
      */
-    public static short byteArrayToShort(byte[] bytes) {
+    public static byte[] doubleToByteArray(double d) {
+        long value = Double.doubleToLongBits(d);
+        byte[] arr = new byte[Constants.CONSTANT_8];
+        for (int i = 0; i < Constants.CONSTANT_8; i++) {
+            int index = Constants.CONSTANT_8 - i - 1;
+            arr[index] = (byte) ((value >> Constants.CONSTANT_8 * i) & Constants.CONSTANT_FF);
+        }
+        return arr;
+    }
+
+    /**
+     * Big-Endian
+     *
+     * @param arr
+     * @return
+     */
+    public static short byteArrayToShort(byte[] arr) {
         short value = 0;
-        // 由高位到低位
-        for (int i = 0; i < 2; i++) {
-            int shift = (2 - 1 - i) * Constants.CONSTANT_8;
-            // 往高位游
-            value += (bytes[i] & Constants.CONSTANT_00FF) << shift;
+        int len = arr.length;
+        for (int i = 0; i < len; i++) {
+            int index = len - i - 1;
+            value |= ((long) (arr[index] & Constants.CONSTANT_FF)) << (Constants.CONSTANT_8 * i);
         }
         return value;
     }
 
     /**
-     * byte[]转int
+     * Big-Endian
      *
-     * @param bytes
+     * @param arr
      * @return
      */
-    public static int byteArrayToInt(byte[] bytes) {
+    public static int byteArrayToInt(byte[] arr) {
         int value = 0;
-        int len = bytes.length;
-        // 由高位到低位
+        int len = arr.length;
         for (int i = 0; i < len; i++) {
-            int shift = (len - 1 - i) * Constants.CONSTANT_8;
-            // 往高位游
-            value += (bytes[i] & Constants.CONSTANT_0000FF) << shift;
+            int index = len - 1 - i;
+            value |= ((int) (arr[index] & Constants.CONSTANT_FF)) << (Constants.CONSTANT_8 * i);
         }
         return value;
     }
+
+    /**
+     * Big-Endian
+     *
+     * @param arr
+     * @return
+     */
+    public static float byteArrayToFloat(byte[] arr) {
+        int value = 0;
+        int len = arr.length;
+        for (int i = 0; i < len; i++) {
+            int index = len - 1 - i;
+            value |= ((int) (arr[index] & Constants.CONSTANT_FF)) << (Constants.CONSTANT_8 * i);
+        }
+        float f = Float.intBitsToFloat(value);
+        return f;
+    }
+
+    /**
+     * Big-Endian
+     *
+     * @param arr
+     * @return
+     */
+    public static double byteArrayToDouble(byte[] arr) {
+        long value = 0;
+        int len = arr.length;
+        for (int i = 0; i < Constants.CONSTANT_8; i++) {
+            int index = len - i - 1;
+            value |= ((long) (arr[index] & Constants.CONSTANT_FF)) << (Constants.CONSTANT_8 * i);
+        }
+        return Double.longBitsToDouble(value);
+    }
+
+    /**
+     * Big-Endian
+     *
+     * @param arr
+     * @return
+     */
+    public static long byteArrayToLong(byte[] arr) {
+        long value = 0;
+        int len = arr.length;
+        for (int i = 0; i < len; i++) {
+            int index = len - i - 1;
+            value |= ((long) (arr[index] & Constants.CONSTANT_FF)) << (Constants.CONSTANT_8 * i);
+        }
+        return value;
+    }
+
 }

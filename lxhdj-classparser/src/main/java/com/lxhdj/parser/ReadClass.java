@@ -11,10 +11,10 @@ import java.util.Map;
 
 import com.lxhdj.bean.ClassBean;
 import com.lxhdj.bean.ConstantPool;
-import com.lxhdj.common.Constants;
+import com.lxhdj.constant.Constants;
 import com.lxhdj.util.ClassUtil;
-import com.lxhdj.util.CommonUtil;
 import com.lxhdj.util.ConstantPoolUtil;
+import com.lxhdj.util.FileUtil;
 
 public class ReadClass {
 
@@ -33,12 +33,12 @@ public class ReadClass {
 
     public static void read() throws IOException, ReflectiveOperationException, SecurityException {
         File file = new File("D:\\BaseCartAction.class");
-        byte[] bytes = CommonUtil.readFileToByteArray(file);
+        byte[] bytes = FileUtil.readFileToByteArray(file);
         InputStream in = new ByteArrayInputStream(bytes);
         ClassBean classBean = new ClassBean();
         try {
             // 魔数 magic u4
-            int magic = ClassUtil.readInteger(in, Constants.FOUR);
+            int magic = ClassUtil.readInteger(in, Constants.CONSTANT_4);
             String strMagic = "0x" + Integer.toHexString(magic).toUpperCase();
             classBean.setMagic(strMagic);
             System.out.println("魔数：" + strMagic);
@@ -68,7 +68,7 @@ public class ReadClass {
                 ConstantPool pool = (ConstantPool) method.invoke(null, in);
                 pool.setSerialNumber(i);
                 map.put(i, pool);
-                if (tag == Constants.FIVE || tag == Constants.SIX) {
+                if (tag == Constants.CONSTANT_5 || tag == Constants.CONSTANT_6) {
                     i++;
                 }
             }
@@ -134,36 +134,36 @@ public class ReadClass {
                 pool.setSerialNumber(i);
                 map.put(i, pool);
                 break;
-            case Constants.THREE:
+            case Constants.CONSTANT_3:
                 ConstantPoolParser.readIntegerInfo(in);
                 break;
-            case Constants.FOUR:
+            case Constants.CONSTANT_4:
                 ConstantPoolParser.readFloatInfo(in);
                 break;
-            case Constants.FIVE:
+            case Constants.CONSTANT_5:
                 ConstantPoolParser.readLongInfo(in);
                 i++;
                 break;
-            case Constants.SIX:
+            case Constants.CONSTANT_6:
                 ConstantPoolParser.readDoubleInfo(in);
                 i++;
                 break;
-            case Constants.SEVEN:
+            case Constants.CONSTANT_7:
                 ConstantPoolParser.readClassInfo(in);
                 break;
-            case Constants.EIGHT:
+            case Constants.CONSTANT_8:
                 ConstantPoolParser.readStringInfo(in);
                 break;
-            case Constants.NINE:
+            case Constants.CONSTANT_9:
                 ConstantPoolParser.readFieldRefInfo(in);
                 break;
-            case Constants.TEN:
+            case Constants.CONSTANT_10:
                 ConstantPoolParser.readMethodRefInfo(in);
                 break;
-            case Constants.ELEVEN:
+            case Constants.CONSTANT_11:
                 ConstantPoolParser.readInterfaceMethodRefInfo(in);
                 break;
-            case Constants.TWELVE:
+            case Constants.CONSTANT_12:
                 ConstantPoolParser.readNameAndTypeInfo(in);
                 break;
             default:

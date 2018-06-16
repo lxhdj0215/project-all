@@ -1,6 +1,6 @@
 package com.lxhdj.util;
 
-import com.lxhdj.common.Constants;
+import com.lxhdj.constant.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,34 +41,34 @@ public class ConstantPoolUtil {
 
     static {
         mapInfo.put(1, CONSTANT_UTF8_INFO);
-        mapInfo.put(Constants.THREE, CONSTANT_INTEGER_INFO);
-        mapInfo.put(Constants.FOUR, CONSTANT_FLOAT_INFO);
-        mapInfo.put(Constants.FIVE, CONSTANT_LONG_INFO);
-        mapInfo.put(Constants.SIX, CONSTANT_DOUBLE_INFO);
-        mapInfo.put(Constants.EIGHT, CONSTANT_CLASS_INFO);
-        mapInfo.put(Constants.SIX, CONSTANT_STRING_INFO);
-        mapInfo.put(Constants.NINE, CONSTANT_FIELDREF_INFO);
-        mapInfo.put(Constants.TEN, CONSTANT_METHODREF_INFO);
-        mapInfo.put(Constants.ELEVEN, CONSTANT_INTERFACEMETHODREF_INFO);
-        mapInfo.put(Constants.TWELVE, CONSTANT_NAMEANDTYPE_INFO);
-        mapInfo.put(Constants.FIFTEEN, CONSTANT_METHODHANDLE_INFO);
-        mapInfo.put(Constants.SIXTEEN, CONSTANT_METHODTYPE_INFO);
-        mapInfo.put(Constants.EIGHTEEN, CONSTANT_INVOKEDYNAMIC_INFO);
+        mapInfo.put(Constants.CONSTANT_3, CONSTANT_INTEGER_INFO);
+        mapInfo.put(Constants.CONSTANT_4, CONSTANT_FLOAT_INFO);
+        mapInfo.put(Constants.CONSTANT_5, CONSTANT_LONG_INFO);
+        mapInfo.put(Constants.CONSTANT_6, CONSTANT_DOUBLE_INFO);
+        mapInfo.put(Constants.CONSTANT_7, CONSTANT_CLASS_INFO);
+        mapInfo.put(Constants.CONSTANT_8, CONSTANT_STRING_INFO);
+        mapInfo.put(Constants.CONSTANT_9, CONSTANT_FIELDREF_INFO);
+        mapInfo.put(Constants.CONSTANT_10, CONSTANT_METHODREF_INFO);
+        mapInfo.put(Constants.CONSTANT_11, CONSTANT_INTERFACEMETHODREF_INFO);
+        mapInfo.put(Constants.CONSTANT_12, CONSTANT_NAMEANDTYPE_INFO);
+        mapInfo.put(Constants.CONSTANT_15, CONSTANT_METHODHANDLE_INFO);
+        mapInfo.put(Constants.CONSTANT_16, CONSTANT_METHODTYPE_INFO);
+        mapInfo.put(Constants.CONSTANT_18, CONSTANT_INVOKEDYNAMIC_INFO);
 
         mapMethod.put(1, CONSTANT_UTF8_METHOD);
-        mapMethod.put(Constants.THREE, CONSTANT_INTEGER_METHOD);
-        mapMethod.put(Constants.FOUR, CONSTANT_FLOAT_METHOD);
-        mapMethod.put(Constants.FIVE, CONSTANT_LONG_METHOD);
-        mapMethod.put(Constants.SIX, CONSTANT_DOUBLE_METHOD);
-        mapMethod.put(Constants.SEVEN, CONSTANT_CLASS_METHOD);
-        mapMethod.put(Constants.EIGHT, CONSTANT_STRING_METHOD);
-        mapMethod.put(Constants.NINE, CONSTANT_FIELDREF_METHOD);
-        mapMethod.put(Constants.TEN, CONSTANT_METHODREF_METHOD);
-        mapMethod.put(Constants.ELEVEN, CONSTANT_INTERFACEMETHODREF_METHOD);
-        mapMethod.put(Constants.TWELVE, CONSTANT_NAMEANDTYPE_METHOD);
-        mapMethod.put(Constants.FIFTEEN, CONSTANT_METHODHANDLE_METHOD);
-        mapMethod.put(Constants.SIXTEEN, CONSTANT_METHODTYPE_METHOD);
-        mapMethod.put(Constants.EIGHTEEN, CONSTANT_INVOKEDYNAMIC_METHOD);
+        mapMethod.put(Constants.CONSTANT_3, CONSTANT_INTEGER_METHOD);
+        mapMethod.put(Constants.CONSTANT_4, CONSTANT_FLOAT_METHOD);
+        mapMethod.put(Constants.CONSTANT_5, CONSTANT_LONG_METHOD);
+        mapMethod.put(Constants.CONSTANT_6, CONSTANT_DOUBLE_METHOD);
+        mapMethod.put(Constants.CONSTANT_7, CONSTANT_CLASS_METHOD);
+        mapMethod.put(Constants.CONSTANT_8, CONSTANT_STRING_METHOD);
+        mapMethod.put(Constants.CONSTANT_9, CONSTANT_FIELDREF_METHOD);
+        mapMethod.put(Constants.CONSTANT_10, CONSTANT_METHODREF_METHOD);
+        mapMethod.put(Constants.CONSTANT_11, CONSTANT_INTERFACEMETHODREF_METHOD);
+        mapMethod.put(Constants.CONSTANT_12, CONSTANT_NAMEANDTYPE_METHOD);
+        mapMethod.put(Constants.CONSTANT_15, CONSTANT_METHODHANDLE_METHOD);
+        mapMethod.put(Constants.CONSTANT_16, CONSTANT_METHODTYPE_METHOD);
+        mapMethod.put(Constants.CONSTANT_18, CONSTANT_INVOKEDYNAMIC_METHOD);
     }
 
     public static String getConstantPoolType(int tag) {

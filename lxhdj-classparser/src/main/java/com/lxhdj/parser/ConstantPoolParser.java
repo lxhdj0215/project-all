@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lxhdj.bean.ConstantPool;
-import com.lxhdj.common.Constants;
+import com.lxhdj.constant.Constants;
 import com.lxhdj.util.ClassUtil;
 
 public class ConstantPoolParser {
     // UTF-8 编码的字符串：1
     public static ConstantPool parserUtf8Info(InputStream in) throws IOException {
-        int length = ClassUtil.readInteger(in, Constants.TWO);
+        int length = ClassUtil.readInteger(in, Constants.CONSTANT_2);
         String str = ClassUtil.readStr(in, length);
         System.out.println("\t名称：" + str);
         ConstantPool pool = new ConstantPool();
@@ -23,10 +23,10 @@ public class ConstantPoolParser {
 
     // 整形字面量：3
     public static ConstantPool readIntegerInfo(InputStream in) throws IOException {
-        int i = ClassUtil.readInteger(in, Constants.FOUR);
+        int i = ClassUtil.readInteger(in, Constants.CONSTANT_4);
         System.out.println(i);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.THREE);
+        pool.setType(Constants.CONSTANT_3);
         pool.setValue(i);
         return pool;
 
@@ -37,7 +37,7 @@ public class ConstantPoolParser {
         float f = ClassUtil.readFloat(in);
         System.out.println(f);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.FOUR);
+        pool.setType(Constants.CONSTANT_4);
         pool.setValue(f);
         return pool;
     }
@@ -47,7 +47,7 @@ public class ConstantPoolParser {
         long l = ClassUtil.readLong(in);
         System.out.println(l);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.FIVE);
+        pool.setType(Constants.CONSTANT_5);
         pool.setValue(l);
         return pool;
     }
@@ -57,7 +57,7 @@ public class ConstantPoolParser {
         double d = ClassUtil.readDouble(in);
         System.out.println(d);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.SIX);
+        pool.setType(Constants.CONSTANT_6);
         pool.setValue(d);
         return pool;
     }
@@ -65,10 +65,10 @@ public class ConstantPoolParser {
     // 类或接口的符号引用：7
     public static ConstantPool readClassInfo(InputStream in) throws IOException {
         // name_index
-        int index = ClassUtil.readInteger(in, Constants.TWO);
+        int index = ClassUtil.readInteger(in, Constants.CONSTANT_2);
         System.out.println("\t索引值：" + index);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.SEVEN);
+        pool.setType(Constants.CONSTANT_7);
         List<Integer> indexs = new ArrayList<>(1);
         indexs.add(index);
         pool.setIndexs(indexs);
@@ -78,10 +78,10 @@ public class ConstantPoolParser {
     // 字符串类型字面量：8
     public static ConstantPool readStringInfo(InputStream in) throws IOException {
         // name_index
-        int index = ClassUtil.readInteger(in, Constants.TWO);
+        int index = ClassUtil.readInteger(in, Constants.CONSTANT_2);
         System.out.println("\t索引值：" + index);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.EIGHT);
+        pool.setType(Constants.CONSTANT_8);
         List<Integer> indexs = new ArrayList<>(1);
         indexs.add(index);
         pool.setIndexs(indexs);
@@ -90,12 +90,12 @@ public class ConstantPoolParser {
 
     // 字段的符号引用：9
     public static ConstantPool readFieldRefInfo(InputStream in) throws IOException {
-        int index1 = ClassUtil.readInteger(in, Constants.TWO);
-        int index2 = ClassUtil.readInteger(in, Constants.TWO);
+        int index1 = ClassUtil.readInteger(in, Constants.CONSTANT_2);
+        int index2 = ClassUtil.readInteger(in, Constants.CONSTANT_2);
         System.out.print("：" + index1);
         System.out.println("：" + index2);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.NINE);
+        pool.setType(Constants.CONSTANT_9);
         List<Integer> indexs = new ArrayList<>(1);
         indexs.add(index1);
         indexs.add(index2);
@@ -105,12 +105,12 @@ public class ConstantPoolParser {
 
     // 类中方法的符号引用：10
     public static ConstantPool readMethodRefInfo(InputStream in) throws IOException {
-        int index1 = ClassUtil.readInteger(in, Constants.TWO);
-        int index2 = ClassUtil.readInteger(in, Constants.TWO);
+        int index1 = ClassUtil.readInteger(in, Constants.CONSTANT_2);
+        int index2 = ClassUtil.readInteger(in, Constants.CONSTANT_2);
         System.out.print("：" + index1);
         System.out.println("：" + index2);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.TEN);
+        pool.setType(Constants.CONSTANT_10);
         List<Integer> indexs = new ArrayList<>(1);
         indexs.add(index1);
         indexs.add(index2);
@@ -120,12 +120,12 @@ public class ConstantPoolParser {
 
     // 接口中方法的符号引用：11
     public static ConstantPool readInterfaceMethodRefInfo(InputStream in) throws IOException {
-        int index1 = ClassUtil.readInteger(in, Constants.TWO);
-        int index2 = ClassUtil.readInteger(in, Constants.TWO);
+        int index1 = ClassUtil.readInteger(in, Constants.CONSTANT_2);
+        int index2 = ClassUtil.readInteger(in, Constants.CONSTANT_2);
         System.out.print("：" + index1);
         System.out.println("：" + index2);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.ELEVEN);
+        pool.setType(Constants.CONSTANT_11);
         List<Integer> indexs = new ArrayList<>(1);
         indexs.add(index1);
         indexs.add(index2);
@@ -135,12 +135,12 @@ public class ConstantPoolParser {
 
     // 字段或方法的符号引用：12
     public static ConstantPool readNameAndTypeInfo(InputStream in) throws IOException {
-        int index1 = ClassUtil.readInteger(in, Constants.TWO);
-        int index2 = ClassUtil.readInteger(in, Constants.TWO);
+        int index1 = ClassUtil.readInteger(in, Constants.CONSTANT_2);
+        int index2 = ClassUtil.readInteger(in, Constants.CONSTANT_2);
         System.out.print("：" + index1);
         System.out.println("：" + index2);
         ConstantPool pool = new ConstantPool();
-        pool.setType(Constants.TWELVE);
+        pool.setType(Constants.CONSTANT_12);
         List<Integer> indexs = new ArrayList<>(1);
         indexs.add(index1);
         indexs.add(index2);
