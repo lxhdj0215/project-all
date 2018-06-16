@@ -52,30 +52,40 @@ public class Sina {
     }
 
 
-    public void addComment(HttpClient httpClient) {
+    public boolean addComment(HttpClient httpClient) {
         try {
-            String url = "http://weibo.com/aj/v6/comment/add?ajwvr=6&__rnd=" + System.currentTimeMillis();
-            List<NameValuePair> parameters = SinaHttpUtil.getWeiboCommentParameterByList("1111111");
+            String url = "https://weibo.com/aj/v6/comment/add?ajwvr=6&__rnd=" + System.currentTimeMillis();
+            List<NameValuePair> parameters = SinaHttpUtil.getWeiboCommentParameterByList("3111111");
             Map<String, String> properties = new HashMap<>();
-            properties.put("Referer", "http://weibo.com/5869502624/profile?profile_ftype=1&is_all=1");
+            properties.put("Referer", "https://weibo.com/5869502624/profile?profile_ftype=1&is_all=1");
             String content = HttpClientUtil.postRequest(httpClient, url, parameters, properties);
-            System.out.println(content);
+            JSONObject jsonObject = JSONObject.parseObject(content);
+            String code = (String) jsonObject.get("code");
+            if (Constants.ADD_WEIBO_SUCCESS.equals(code)) {
+                return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public void addWeibo(HttpClient httpClient) {
+    public boolean addWeibo(HttpClient httpClient) {
         try {
-            String url = "http://weibo.com/aj/mblog/add?ajwvr=6&__rnd=" + System.currentTimeMillis();
+            String url = "https://weibo.com/aj/mblog/add?ajwvr=6&__rnd=" + System.currentTimeMillis();
             List<NameValuePair> parameters = SinaHttpUtil.getAddWeiboParameterByList("4567");
             Map<String, String> properties = new HashMap<>();
-            properties.put("Referer", "http://weibo.com/u/5869502624/home?topnav=1&wvr=6");
+            properties.put("Referer", "https://weibo.com/u/5869502624/home?topnav=1&wvr=6");
             String content = HttpClientUtil.postRequest(httpClient, url, parameters, properties);
-            System.out.println(content);
+            JSONObject jsonObject = JSONObject.parseObject(content);
+            String code = (String) jsonObject.get("code");
+            if (Constants.ADD_WEIBO_SUCCESS.equals(code)) {
+                return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
 }

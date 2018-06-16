@@ -2,6 +2,9 @@ package com.lxhdj.sina;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.client.HttpClient;
+
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import java.util.List;
@@ -19,5 +22,22 @@ public class SinaTest {
         String homeHtml = SinaHttpUtil.getHtml(httpClient, homeUrl);
         List<JSONObject> list = sina.getUserInfo(homeHtml);
         System.out.println(list);
+    }
+
+
+    @Test
+    public void addWeiboTest() {
+        Sina sina = new Sina();
+        HttpClient httpClient = sina.getHttpClient();
+        boolean result = sina.addWeibo(httpClient);
+        assertTrue(result);
+    }
+
+    @Test
+    public void addCommentTest() {
+        Sina sina = new Sina();
+        HttpClient httpClient = sina.getHttpClient();
+        boolean result = sina.addComment(httpClient);
+        assertTrue("添加评论失败", result);
     }
 }

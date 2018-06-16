@@ -17,4 +17,7 @@ public class Constants {
     public static final int CONSTANT_FF = 0xFF;
     public static final int CONSTANT_00FF = 0x00FF;
     public static final int CONSTANT_0000FF = 0x000000FF;
+
+    // weibo
+    public static final String ADD_WEIBO_SUCCESS = "100000";
 }

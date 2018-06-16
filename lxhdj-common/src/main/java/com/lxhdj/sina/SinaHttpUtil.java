@@ -32,7 +32,7 @@ public class SinaHttpUtil {
     }
 
     public static List<NameValuePair> getWeiboCommentParameterByList(String text) throws UnsupportedEncodingException {
-        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        List<NameValuePair> parameters = new ArrayList<>();
         parameters.add(new BasicNameValuePair("act", "post"));
         parameters.add(new BasicNameValuePair("mid", "3971464383796145"));
         parameters.add(new BasicNameValuePair("uid", "5869502624"));
