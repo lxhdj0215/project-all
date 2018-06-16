@@ -8,10 +8,10 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<title>登陆界面</title>
-	<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		html {
-			background: url("/resources/images/bg.png") no-repeat center center;
+			background: url("/static/images/bg.png") no-repeat center center;
 		}
 		label {
 			color: #fff;

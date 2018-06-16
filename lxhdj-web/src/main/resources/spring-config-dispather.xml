@@ -19,9 +19,8 @@
     <mvc:annotation-driven/>
 
     <!-- ** 所有目录 -->
-    <mvc:resources location="/static/" mapping="/static/**"/>
     <!-- 静态资源放行 -->
-    <mvc:resources location="/resources/" mapping="/resources/**/*"/>
+    <mvc:resources location="/static/" mapping="/static/**"/>
 
     <!-- 使用默认的Servlet来响应静态文件 -->
     <mvc:default-servlet-handler/>
