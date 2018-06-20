@@ -58,7 +58,7 @@ public class RedisTest {
         jedis.lpush("site-list", "Google");
         jedis.lpush("site-list", "Taobao");
         // 获取存储的数据并输出
-        List<String> list = jedis.lrange("site-list", 0, 2);
+        List<String> list = jedis.lrange("site-list", 0, jedis.llen("site-list"));
         for (int i = 0; i < list.size(); i++) {
             System.out.println("列表项为: " + list.get(i));
         }
