@@ -10,5 +10,4 @@ public class Message {
     private Integer msgId;
 
     private String msg;
-    
 }

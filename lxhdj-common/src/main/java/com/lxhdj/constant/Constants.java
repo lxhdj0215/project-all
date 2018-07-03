@@ -26,6 +26,9 @@ public class Constants {
     public static final int CONSTANT_FF = 0xFF;
     public static final int CONSTANT_00FF = 0x00FF;
     public static final int CONSTANT_0000FF = 0x000000FF;
+    public static final int CONSTANT_1234 = 1234;
+    public static final int CONSTANT_MAX_PORT = 65535;
+
 
     // weibo
     public static final String ADD_WEIBO_SUCCESS = "100000";
