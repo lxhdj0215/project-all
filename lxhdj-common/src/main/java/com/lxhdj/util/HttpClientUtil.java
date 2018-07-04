@@ -19,7 +19,7 @@ public class HttpClientUtil {
     public static final String ACCEPT_LANGUAGE = "zh-CN,zh;q=0.8";
     public static final String CONTENT_ENCODING = "UTF-8";
     // 代理
-    public static final String X_FORWARDED_FOR = "";
+    public static final String X_FORWARDED_FOR = "10.186.9.215";
 
 
     public static String getRequest(HttpClient httpClient, String url) throws IOException {
@@ -27,6 +27,17 @@ public class HttpClientUtil {
         httpGet.addHeader("Accept-Language", ACCEPT_LANGUAGE);
         httpGet.addHeader("User-Agent", USER_AGENT);
         httpGet.addHeader("X-Forwarded-For", X_FORWARDED_FOR);
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String content = EntityUtils.toString(httpEntity, "UTF-8");
+        return content;
+    }
+
+    public static String getRequest(HttpClient httpClient, String url, String proxy) throws IOException {
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.addHeader("Accept-Language", ACCEPT_LANGUAGE);
+        httpGet.addHeader("User-Agent", USER_AGENT);
+        httpGet.addHeader("X-Forwarded-For", proxy);
         HttpResponse httpResponse = httpClient.execute(httpGet);
         HttpEntity httpEntity = httpResponse.getEntity();
         String content = EntityUtils.toString(httpEntity, "UTF-8");

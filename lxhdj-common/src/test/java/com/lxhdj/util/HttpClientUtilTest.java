@@ -37,10 +37,11 @@ public class HttpClientUtilTest {
     @Test
     public void getRequestTest() {
         HttpClient httpClient = HttpClients.createDefault();
-        String url = "http://www.baidu.com";
+        String url = "http://item.jd.hk/4962188.html";
         try {
-            String html = HttpClientUtil.getRequest(httpClient, url);
-//            System.out.println(html);
+            String proxy = "10.186.129.108";
+            String html = HttpClientUtil.getRequest(httpClient, url, proxy);
+            System.out.println(html);
         } catch (IOException e) {
             e.printStackTrace();
         }

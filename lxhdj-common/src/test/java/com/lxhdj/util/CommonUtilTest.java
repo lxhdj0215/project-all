@@ -1,14 +1,19 @@
 package com.lxhdj.util;
 
+import javassist.bytecode.ConstPool;
 import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
  * Created by wangguijun1 on 2018/6/15.
  */
 public class CommonUtilTest {
+
+    public void test() {
+//        Constantpo
+        ConstPool constPool = null;
+    }
 
     @Test
     public void typeConversionTest() {
